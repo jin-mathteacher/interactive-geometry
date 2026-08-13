@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>대단원 - 인터랙티브 기하</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><a href="index.html">인터랙티브 기하 <small>with Mong Teacher</small></a></div>
+    <nav class="main-nav">
+      <a href="index.html">홈</a>
+      <a href="unit.html?u=1">1. 이차곡선</a>
+      <a href="unit.html?u=2">2. 평면벡터</a>
+      <a href="unit.html?u=3">3. 공간도형과 공간좌표</a>
+    </nav>
+    <button class="hamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="container">
+    <section class="hero" style="padding-top:16px;">
+      <h1 id="unit-title">대단원</h1>
+      <p id="unit-summary"></p>
+    </section>
+
+    <div class="lesson-list" id="lesson-list"></div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="made">Made by Mong Teacher</div>
+    <div class="note">바이브 코딩을 활용해 천재교육, 두산동아, 비상 등 고등학교 기하(이) 교과서를 참고하여 제작한 학습 자료입니다.</div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script>
+    function getQueryParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    const unitId = getQueryParam("u");
+
+    fetch("content/units.json")
+      .then((r) => r.json())
+      .then((data) => {
+        const unit = data.units.find((u) => u.id === unitId);
+        if (!unit) {
+          document.getElementById("unit-title").textContent = "대단원을 찾을 수 없습니다";
+          return;
+        }
+        document.title = `${unit.title} - 인터랙티브 기하`;
+        document.getElementById("unit-title").textContent = `${unit.id}. ${unit.title}`;
+        document.getElementById("unit-summary").textContent = unit.summary;
+
+        // 학습 진도(localStorage) 읽기
+        let progress = [];
+        try { progress = JSON.parse(localStorage.getItem("geoProgress") || "[]"); } catch {}
+
+        const list = document.getElementById("lesson-list");
+        unit.lessons.forEach((lesson) => {
+          const prefix = `${unit.id}-${lesson.id}:`;
+          const doneCount = progress.filter((t) => t.startsWith(prefix)).length;
+          const badge = doneCount > 0
+            ? `<span class="done-badge">✓ 완료한 활동 ${doneCount}개</span>`
+            : "";
+          const card = document.createElement("div");
+          card.className = "lesson-card";
+          card.innerHTML = `
+            <h3>${unit.id}-${lesson.id}. ${lesson.title} ${badge}</h3>
+            <p>${lesson.desc}</p>
+            <a class="btn" href="lesson.html?u=${unit.id}&l=${lesson.id}">활동 시작하기</a>
+          `;
+          list.appendChild(card);
+        });
+      });
+  </script>
+</body>
+</html>

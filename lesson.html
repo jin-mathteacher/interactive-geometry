@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>소단원 - 인터랙티브 기하</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- KaTeX: 수식 렌더링 오픈소스 (MIT 라이선스) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><a href="index.html">인터랙티브 기하 <small>with Mong Teacher</small></a></div>
+    <nav class="main-nav">
+      <a href="index.html">홈</a>
+      <a href="unit.html?u=1">1. 이차곡선</a>
+      <a href="unit.html?u=2">2. 평면벡터</a>
+      <a href="unit.html?u=3">3. 공간도형과 공간좌표</a>
+    </nav>
+    <button class="hamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="container">
+    <p id="breadcrumb" class="breadcrumb"></p>
+    <h1 id="lesson-title">소단원</h1>
+
+    <section class="lesson-section hook-section" id="hook-section" hidden>
+      <h2><span class="section-badge">⓪</span> 들어가기 <span id="hook-title" class="hook-title"></span></h2>
+      <p id="hook-text"></p>
+      <div id="hook-game"></div>
+      <div class="hook-actions">
+        <button class="btn" id="hook-continue" hidden>오늘 수업으로 계속하기 →</button>
+        <button class="hint-btn" id="hook-skip">건너뛰고 바로 수업 보기</button>
+      </div>
+    </section>
+
+    <div id="lesson-content">
+      <section class="lesson-section">
+        <h2><span class="section-badge">①</span> 개념 열기</h2>
+        <p id="intro-text"></p>
+        <div id="intro-embed"></div>
+      </section>
+
+      <section class="lesson-section">
+        <h2><span class="section-badge">②</span> 원리 탐구</h2>
+        <p id="explore-text"></p>
+        <div id="explore-list"></div>
+      </section>
+
+      <section class="lesson-section">
+        <h2><span class="section-badge">③</span> 문제 풀이</h2>
+        <div id="problem-list"></div>
+      </section>
+
+      <section class="lesson-section">
+        <h2><span class="section-badge">④</span> 실생활 적용</h2>
+        <p id="apply-text"></p>
+        <div id="apply-embed"></div>
+      </section>
+    </div>
+
+    <div class="export-bar">
+      <button class="btn secondary" id="export-btn">활동 결과 PDF로 저장</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="made">Made by Mong Teacher</div>
+    <div class="note">바이브 코딩을 활용해 천재교육, 두산동아, 비상 등 고등학교 기하(이) 교과서를 참고하여 제작한 학습 자료입니다.</div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="js/nav.js"></script>
+  <script src="js/embed.js"></script>
+  <script src="js/pdf-export.js"></script>
+  <script src="js/lesson.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>인터랙티브 기하 — 개념부터 실생활까지</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">인터랙티브 기하 <small>with Mong Teacher</small></div>
+    <nav class="main-nav">
+      <a href="index.html" class="active">홈</a>
+      <a href="unit.html?u=1">1. 이차곡선</a>
+      <a href="unit.html?u=2">2. 평면벡터</a>
+      <a href="unit.html?u=3">3. 공간도형과 공간좌표</a>
+    </nav>
+    <button class="hamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>칠판 앞으로 나와서, <u>직접 그려 보는</u> 기하</h1>
+      <p>로그인 없이, 설치 없이 — 개념 열기부터 원리 탐구, 문제 풀이, 실생활 적용까지 한 번에.</p>
+      <svg class="chalkline" viewBox="0 0 220 30" aria-hidden="true">
+        <path d="M5 20 Q 60 5 110 18 T 215 14" fill="none" stroke="#f5d76e" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </section>
+
+    <section class="unit-grid" id="unit-grid"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="made">Made by Mong Teacher</div>
+    <div class="note">바이브 코딩을 활용해 천재교육, 두산동아, 비상 등 고등학교 기하(이) 교과서를 참고하여 제작한 학습 자료입니다.</div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script>
+    fetch("content/units.json")
+      .then((r) => r.json())
+      .then((data) => {
+        const grid = document.getElementById("unit-grid");
+        data.units.forEach((unit) => {
+          const card = document.createElement("a");
+          card.href = `unit.html?u=${unit.id}`;
+          card.className = "unit-card";
+          card.innerHTML = `<span class="no">${unit.id}단원</span><h2>${unit.title}</h2><p>${unit.summary}</p>`;
+          grid.appendChild(card);
+        });
+      });
+  </script>
+</body>
+</html>
