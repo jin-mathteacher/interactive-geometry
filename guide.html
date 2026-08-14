@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>수업 진행 가이드 - 인터랙티브 기하</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* 게이트 (수업코드 입력) */
+    .gate {
+      max-width: 420px;
+      margin: 12vh auto 0;
+      text-align: center;
+      background: #ffffff08;
+      border: 1.5px solid var(--chalk-line);
+      border-radius: var(--radius);
+      padding: 40px 32px;
+    }
+    .gate h1 { font-size: 1.3rem; margin: 0 0 8px; }
+    .gate p { color: var(--chalk-dim); font-size: 0.9rem; margin: 0 0 20px; }
+    .gate input {
+      width: 100%;
+      padding: 12px 14px;
+      background: transparent;
+      border: 1.5px solid var(--chalk-line);
+      border-radius: 8px;
+      color: var(--chalk);
+      font-size: 1rem;
+      text-align: center;
+      outline: none;
+      margin-bottom: 12px;
+    }
+    .gate input:focus { border-color: var(--chalk-yellow); }
+    .gate .wrong { color: var(--wrong); font-size: 0.85rem; margin-top: 10px; display: none; }
+
+    /* 가이드 본문 */
+    .guide-lesson {
+      background: #ffffff08;
+      border: 1.5px solid var(--chalk-line);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 18px;
+    }
+    .guide-lesson h3 { margin: 0 0 4px; font-size: 1.1rem; color: var(--chalk-yellow); }
+    .guide-lesson h4 {
+      margin: 18px 0 6px;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      color: var(--chalk-dim);
+      border-bottom: 1px dashed var(--chalk-line);
+      padding-bottom: 4px;
+    }
+    .guide-lesson p, .guide-lesson li { font-size: 0.88rem; color: var(--chalk); line-height: 1.7; }
+    .guide-lesson ul, .guide-lesson ol { margin: 6px 0; padding-left: 20px; }
+    .guide-lesson .muted { color: var(--chalk-dim); }
+    .answer-chip {
+      display: inline-block;
+      background: #8fd6a81a;
+      border: 1px solid #8fd6a855;
+      color: var(--correct);
+      border-radius: 6px;
+      padding: 1px 8px;
+      font-size: 0.85rem;
+    }
+    .flow-box {
+      border: 1.5px dashed var(--chalk-line);
+      border-radius: var(--radius);
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+      color: var(--chalk-dim);
+      line-height: 1.9;
+    }
+    .unit-heading { margin: 36px 0 14px; font-size: 1.25rem; }
+    .open-link { font-size: 0.8rem; margin-left: 10px; color: var(--chalk-yellow); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand"><a href="index.html">인터랙티브 기하 <small>with Mong Teacher</small></a></div>
+    <nav class="main-nav">
+      <a href="index.html">홈</a>
+      <a href="unit.html?u=1">1. 이차곡선</a>
+      <a href="unit.html?u=2">2. 평면벡터</a>
+      <a href="unit.html?u=3">3. 공간도형과 공간좌표</a>
+    </nav>
+    <button class="hamburger" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <main class="container">
+    <!-- 수업코드 게이트 -->
+    <div class="gate" id="gate">
+      <h1>🔒 선생님 전용 공간</h1>
+      <p>수업 진행 가이드를 보려면 수업코드를 입력하세요.</p>
+      <input type="password" id="code-input" placeholder="수업코드" autocomplete="off" />
+      <button class="btn" id="code-btn" style="width:100%">입장하기</button>
+      <div class="wrong" id="code-wrong">수업코드가 올바르지 않습니다.</div>
+    </div>
+
+    <!-- 가이드 본문 (인증 후 표시) -->
+    <div id="guide" hidden>
+      <h1 style="margin-bottom:6px;">수업 진행 가이드</h1>
+      <p class="breadcrumb" style="margin-top:0;">소단원별 게임 공략 · 탐구 포인트 · 정답 모음 (콘텐츠가 갱신되면 자동 반영됩니다)</p>
+
+      <div class="flow-box">
+        <strong style="color:var(--chalk);">권장 차시 흐름 (50분 기준)</strong><br />
+        ⓪ 들어가기 게임 5~8분 (전자칠판으로 함께 하거나 개인 기기) →
+        ① 개념 열기 5분 (영상은 예습 과제로 대체 가능) →
+        ② 원리 탐구 15~20분 (짝 활동 추천 — "조작하는 사람 / 기록하는 사람" 역할 교대) →
+        ③ 문제 풀이 10분 (힌트는 스스로 열게 지도) →
+        ④ 실생활 적용 + 활동 결과 PDF 저장 5분 (PDF는 과제 제출용으로 활용 가능)
+      </div>
+
+      <div id="guide-content"></div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="made">Made by Mong Teacher</div>
+    <div class="note">바이브 코딩을 활용해 천재교육, 두산동아, 비상 등 고등학교 기하(이) 교과서를 참고하여 제작한 학습 자료입니다.</div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+  <script>
+    const CODE = "기하";
+
+    function showGuide() {
+      document.getElementById("gate").hidden = true;
+      document.getElementById("guide").hidden = false;
+      buildGuide();
+    }
+
+    function checkCode() {
+      const v = document.getElementById("code-input").value.trim();
+      if (v === CODE) {
+        sessionStorage.setItem("geoTeacher", "1");
+        showGuide();
+      } else {
+        document.getElementById("code-wrong").style.display = "block";
+      }
+    }
+
+    document.getElementById("code-btn").addEventListener("click", checkCode);
+    document.getElementById("code-input").addEventListener("keydown", (e) => {
+      if (e.key === "Enter") checkCode();
+    });
+
+    if (sessionStorage.getItem("geoTeacher") === "1") showGuide();
+
+    // 소단원 JSON에서 교사용 정보를 자동 추출해 렌더링
+    async function buildGuide() {
+      const container = document.getElementById("guide-content");
+      if (container.childElementCount > 0) return;
+
+      const units = await fetch("content/units.json").then((r) => r.json());
+
+      for (const unit of units.units) {
+        const h2 = document.createElement("h2");
+        h2.className = "unit-heading";
+        h2.textContent = `${unit.id}단원. ${unit.title}`;
+        container.appendChild(h2);
+
+        for (const lessonMeta of unit.lessons) {
+          const lesson = await fetch(`content/lessons/${unit.id}-${lessonMeta.id}.json`)
+            .then((r) => (r.ok ? r.json() : null))
+            .catch(() => null);
+          if (!lesson) continue;
+
+          const box = document.createElement("div");
+          box.className = "guide-lesson";
+
+          let html = `<h3>${unit.id}-${lessonMeta.id}. ${lesson.title}
+            <a class="open-link" href="lesson.html?u=${unit.id}&l=${lessonMeta.id}" target="_blank">수업 페이지 열기 ↗</a></h3>`;
+
+          // 도입 게임
+          if (lesson.hook) {
+            html += `<h4>⓪ 도입 게임 — ${lesson.hook.title}</h4>
+              <p class="muted">${lesson.hook.text}</p>
+              <p><strong>성공 시 연결 멘트:</strong> <span class="muted">${lesson.hook.revealText || "-"}</span></p>
+              <p><strong>수업 팁:</strong> <span class="muted">게임을 건너뛰는 버튼도 있으니 시간이 부족하면 "건너뛰고 바로 수업 보기"를 안내하세요. 성공 조건을 미리 시연해 보시는 것을 추천합니다.</span></p>`;
+          }
+
+          // 탐구 활동
+          const activities = lesson.explore?.activities || [];
+          const sims = activities.filter((a) => a.type !== "steps");
+          if (sims.length) {
+            html += `<h4>② 원리 탐구 (${sims.length}개 활동)</h4><ul>`;
+            sims.forEach((a) => {
+              html += `<li><strong>${a.title}</strong><br /><span class="muted">${a.text || ""}</span></li>`;
+            });
+            html += `</ul>`;
+          }
+
+          // 단계별 탐구 정답
+          const stepsActs = activities.filter((a) => a.type === "steps");
+          stepsActs.forEach((act) => {
+            html += `<h4>단계별 탐구 정답 — ${act.title}</h4><ol>`;
+            act.steps.forEach((s) => {
+              const correct = s.choices.find((c) => c.correct);
+              html += `<li>${s.prompt}<br />→ <span class="answer-chip">${correct ? correct.label : "?"}</span></li>`;
+            });
+            html += `</ol>`;
+          });
+
+          // 문제 정답
+          const problems = lesson.practice?.problems || [];
+          if (problems.length) {
+            html += `<h4>③ 문제 정답</h4><ol>`;
+            problems.forEach((p) => {
+              const ans = Array.isArray(p.answer) ? p.answer.join(" 또는 ") : p.answer;
+              html += `<li>${p.prompt}<br />→ <span class="answer-chip">${ans}</span> <span class="muted">${p.explanation || ""}</span></li>`;
+            });
+            html += `</ol>`;
+          }
+
+          // 실생활 적용
+          if (lesson.apply?.text) {
+            html += `<h4>④ 실생활 적용 소재</h4><p class="muted">${lesson.apply.text}</p>`;
+          }
+
+          box.innerHTML = html;
+          container.appendChild(box);
+        }
+      }
+    }
+  </script>
+</body>
+</html>
