@@ -345,7 +345,34 @@ async function initLessonPage() {
   // ④ 실생활 적용
   if (lesson.apply) {
     document.getElementById("apply-text").textContent = lesson.apply.text || "";
-    renderEmbed(document.getElementById("apply-embed"), lesson.apply.algeomath, "algeomath");
+    const applyEmbed = document.getElementById("apply-embed");
+
+    // 소단원 전용 GeoGebra 실습 창 (JSON의 commands로 자동 구성)
+    // 숨겨진 상태에서 초기화하면 3D 앱이 깨지므로, 화면에 보일 때 지연 로드한다
+    if (lesson.apply.geogebra && window.renderGeogebraLab) {
+      let ggbMounted = false;
+      const observer = new IntersectionObserver((entries) => {
+        if (!ggbMounted && entries.some((e) => e.isIntersecting)) {
+          ggbMounted = true;
+          observer.disconnect();
+          renderGeogebraLab(applyEmbed, lesson.apply.geogebra);
+        }
+      });
+      observer.observe(applyEmbed);
+    }
+
+    renderEmbed(applyEmbed, lesson.apply.algeomath, "algeomath");
+
+    // 더 찾아보기: GeoGebra 자료 검색 + 알지오매스 바로가기
+    if (lesson.apply.searchKeyword) {
+      const links = document.createElement("p");
+      links.className = "resource-links";
+      links.innerHTML =
+        `📚 더 찾아보기: ` +
+        `<a href="https://www.geogebra.org/search/${encodeURIComponent(lesson.apply.searchKeyword)}" target="_blank" rel="noopener">GeoGebra 자료 검색 ("${lesson.apply.searchKeyword}") ↗</a> · ` +
+        `<a href="https://www.algeomath.kr" target="_blank" rel="noopener">알지오매스 열기 ↗</a>`;
+      applyEmbed.appendChild(links);
+    }
   }
 
   // 수식 렌더링 (KaTeX): 콘텐츠 텍스트에 \( ... \) 또는 $$ ... $$ 로 수식을 쓰면 자동 렌더링

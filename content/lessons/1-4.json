@@ -169,6 +169,22 @@
   },
   "apply": {
     "text": "커브를 도는 차의 헤드라이트 불빛, 원운동하던 인공위성이 궤도를 이탈하는 방향, 스키 점프대 끝에서 선수가 날아가는 방향 — 모두 '그 순간의 접선 방향'입니다. 알지오매스에서 곡선과 직선의 위치 관계를 직접 실험해 보세요.",
-    "algeomath": ""
+    "algeomath": "",
+    "geogebra": {
+      "app": "classic",
+      "caption": "m, n 슬라이더로 직선을 움직이며 포물선과의 교점 개수 변화를 관찰하세요",
+      "commands": [
+        "c:y^2=4x",
+        "m=Slider(-3,3,0.05)",
+        "SetValue(m,1)",
+        "n=Slider(-5,5,0.05)",
+        "SetValue(n,2)",
+        "f:y=m*x+n",
+        "Intersect(c,f)",
+        "SetColor(c,255,200,0)",
+        "SetColor(f,0,150,255)"
+      ]
+    },
+    "searchKeyword": "이차곡선 접선"
   }
 }

@@ -592,3 +592,32 @@ footer.site-footer .note {
   margin-left: 8px;
   vertical-align: middle;
 }
+
+/* GeoGebra 실습 임베드 */
+.ggb-box {
+  margin-top: 16px;
+  border: 1.5px solid var(--chalk-line);
+  border-radius: var(--radius);
+  padding: 14px;
+  background: #f2efe60a;
+  overflow-x: auto;
+}
+
+.ggb-caption {
+  margin: 0 0 10px;
+  font-size: 0.88rem;
+  color: var(--chalk-yellow);
+  font-weight: 600;
+}
+
+.resource-links {
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--chalk-dim);
+}
+
+.resource-links a {
+  color: var(--chalk-yellow);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
