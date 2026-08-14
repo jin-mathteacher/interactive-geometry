@@ -95,7 +95,7 @@
     <div class="gate" id="gate">
       <h1>🔒 선생님 전용 공간</h1>
       <p>수업 진행 가이드를 보려면 수업코드를 입력하세요.</p>
-      <input type="password" id="code-input" placeholder="수업코드" autocomplete="off" />
+      <input type="text" id="code-input" placeholder="수업코드" autocomplete="off" />
       <button class="btn" id="code-btn" style="width:100%">입장하기</button>
       <div class="wrong" id="code-wrong">수업코드가 올바르지 않습니다.</div>
     </div>
@@ -134,9 +134,9 @@
     }
 
     function checkCode() {
-      // 앞뒤 공백과 따옴표(" ' " 등)는 무시하고 비교
-      const v = document.getElementById("code-input").value.trim().replace(/["'“”‘’]/g, "");
-      if (v === CODE) {
+      // 앞뒤 공백·따옴표 무시, 한글이 낱자(ㄱㅣㅎㅏ)로 입력돼도 인정
+      const v = document.getElementById("code-input").value.trim().replace(/["'“”‘’\s]/g, "");
+      if (v === CODE || v === "ㄱㅣㅎㅏ") {
         sessionStorage.setItem("geoTeacher", "1");
         showGuide();
       } else {
